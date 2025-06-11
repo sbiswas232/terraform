@@ -60,12 +60,12 @@ variable "password_authentication" {
 
 variable "admin_username" {
   type    = string
-  default = "sysadmin"
+  default = "######"
 }
 
 variable "admin_password" {
   type    = string
-  default = ""
+  default = "######"
 }
 
 
