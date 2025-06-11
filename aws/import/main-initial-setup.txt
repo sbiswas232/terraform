@@ -1,0 +1,29 @@
+# Initial Import block in main.tf
+import {
+  id = "vpc-053b209618826d14e"
+
+  to = aws_vpc.vpc
+}
+
+import {
+  id = "subnet-086ecb6673a7caa66"
+
+  to = aws_subnet.public_subnet
+}
+
+import {
+  id = "subnet-06ae83788c1f2bb92"
+
+  to = aws_subnet.private_subnet
+}
+
+# Command Run
+# terraform plan -generate-config-out=resources.tf (After create Commented) 
+
+# terraform import aws_vpc.vpc vpc-053b209618826d14e
+
+# terraform import aws_subnet.public_subn subnet-086ecb6673a7caa66
+
+# terraform import aws_subnet.private_subnet subnet-06ae83788c1f2bb92
+
+# terraform plan
