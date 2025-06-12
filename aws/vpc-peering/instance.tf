@@ -87,12 +87,12 @@ resource "aws_instance" "dev_public" {
     volume_type = var.volume_config.v_type
   }
 
-  user_data                   = <<-EOF
+  user_data = <<-EOF
             #!/bin/bash
-            sudo apt-get update
+            sudo apt-get update -y
             sudo apt install apache2 -y
             sudo systemctl start apache2
-            EOF
+          EOF
   tags = {
     Name = "${var.project}-${var.tag_name[0]}-instance1"
   }
