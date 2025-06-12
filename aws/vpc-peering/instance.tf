@@ -75,11 +75,18 @@ resource "aws_instance" "dev_public" {
   subnet_id                   = aws_subnet.subnet[0].id
   ami                         = var.ami
   instance_type               = var.instance_type[0]
-  availability_zone           = var.zone
+  availability_zone           = var.zone[0]
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.dev_vpc_sg.id]
   key_name                    = var.key_name
   depends_on                  = [aws_security_group.dev_vpc_sg]
+
+  root_block_device {
+    delete_on_termination = true
+    volume_size = var.volume_config.v_size
+    volume_type = var.volume_config.v_type
+  }
+
   user_data                   = <<-EOF
             #!/bin/bash
             sudo apt-get update
@@ -96,11 +103,18 @@ resource "aws_instance" "test_public" {
   subnet_id                   = aws_subnet.subnet[1].id
   ami                         = var.ami
   instance_type               = var.instance_type[0]
-  availability_zone           = var.zone
+  availability_zone           = var.zone[1]
   associate_public_ip_address = true
   vpc_security_group_ids      = [aws_security_group.test_vpc_sg.id]
   key_name                    = var.key_name
   depends_on                  = [aws_security_group.test_vpc_sg]
+
+  root_block_device {
+    delete_on_termination = true
+    volume_size = var.volume_config.v_size
+    volume_type = var.volume_config.v_type
+  }
+
   tags = {
     Name = "${var.project}-${var.tag_name[1]}-instance1"
   }
