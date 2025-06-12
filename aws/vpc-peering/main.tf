@@ -13,7 +13,7 @@ resource "aws_subnet" "subnet" {
   count             = length(var.subnet_cidr)
   vpc_id            = element(aws_vpc.vpc[*].id, count.index % length(aws_vpc.vpc))
   cidr_block        = var.subnet_cidr[count.index]
-  availability_zone = var.zone
+  availability_zone = var.zone[count.index]
   tags = {
     Name = "${var.subnet_name[count.index]}-Subnet"
   }
