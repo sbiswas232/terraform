@@ -24,8 +24,8 @@ variable "subnet_name" {
 }
 
 variable "zone" {
-  type    = string
-  default = "ap-southeast-1b"
+  type    = list(string)
+  default = ["ap-southeast-1a", "ap-southeast-1b", "ap-southeast-1a", "ap-southeast-1b"]
 }
 
 variable "ami" {
@@ -42,3 +42,15 @@ variable "key_name" {
   type    = string
   default = "######"
 }
+
+variable "volume_config" {
+  type = object({
+    v_size = number
+    v_type = string
+  })
+  default = {
+    v_size = 8
+    v_type = "gp2"
+  }
+}
+
