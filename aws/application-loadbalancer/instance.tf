@@ -18,6 +18,7 @@ resource "aws_instance" "subnet1_instance1" {
             #!/bin/bash
             sudo apt-get update 
             sudo apt install apache2 -y
+            sudo echo "<html><h1>Welcome to Apache2 Web Server on-$(hostname)!</h1></html>" > /var/www/html/index.html
             sudo systemctl start apache2
           EOF
   tags = {
@@ -45,6 +46,7 @@ resource "aws_instance" "subnet2_instance1" {
             #!/bin/bash
             sudo apt-get update 
             sudo apt install nginx -y
+            sudo echo "<html><h1>Welcome to Nginx Web Server on-$(hostname)!</h1></html>" > /var/www/html/index.html
             sudo systemctl start nginx
           EOF
   tags = {
