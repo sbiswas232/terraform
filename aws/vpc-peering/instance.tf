@@ -56,6 +56,7 @@ resource "aws_instance" "dev_public" {
             #!/bin/bash
             sudo apt-get update -y
             sudo apt install apache2 -y
+            sudo echo "<html><h1>Welcome to Apache2 Web Server on-$(hostname)!</h1></html>" > /var/www/html/index.html
             sudo systemctl start apache2
           EOF
   tags = {
