@@ -22,6 +22,18 @@ resource "aws_lb_target_group" "vpc_lb_tg" {
   vpc_id           = aws_vpc.vpc.id
 }
 
+# Create Load Balancer Listener
+resource "aws_lb_listener" "vpc_lb_listener" {
+  load_balancer_arn = aws_lb.vpc_lb.arn
+  port              = "80"
+  protocol          = "HTTP"
+
+  default_action {
+    type             = "forward"
+    target_group_arn = aws_lb_target_group.vpc_lb_tg.arn
+  }
+}
+
 # Create Target-Group Attachment
 resource "aws_lb_target_group_attachment" "lb_tg1" {
   target_group_arn = aws_lb_target_group.vpc_lb_tg.arn
@@ -33,16 +45,4 @@ resource "aws_lb_target_group_attachment" "lb_tg2" {
   target_group_arn = aws_lb_target_group.vpc_lb_tg.arn
   target_id        = aws_instance.subnet2_instance1.id # EC2 Instance Id.
   port             = 80
-}
-
-# Create Load Balancer Listener
-resource "aws_lb_listener" "front_end_listener" {
-  load_balancer_arn = aws_lb.vpc_lb.arn
-  port              = "80"
-  protocol          = "HTTP"
-
-  default_action {
-    type             = "forward"
-    target_group_arn = aws_lb_target_group.vpc_lb_tg.arn
-  }
 }
