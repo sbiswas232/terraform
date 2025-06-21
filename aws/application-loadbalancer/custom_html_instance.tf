@@ -26,6 +26,10 @@ resource "aws_instance" "subnet1_instance1" {
     volume_type           = var.volume_config.v_type
   }
 
+  lifecycle {
+    create_before_destroy = true
+  }
+
   connection {
     type        = "ssh"
     user        = "ubuntu"
@@ -66,6 +70,10 @@ resource "aws_instance" "subnet2_instance1" {
     delete_on_termination = true
     volume_size           = var.volume_config.v_size
     volume_type           = var.volume_config.v_type
+  }
+
+  lifecycle {
+    create_before_destroy = true
   }
 
   connection {
