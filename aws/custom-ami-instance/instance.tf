@@ -1,4 +1,4 @@
-# Create EC2 Instance
+# Create EC2 Instance for Apache Webserver 
 resource "aws_instance" "instance" {
   vpc_security_group_ids      = [aws_security_group.sg.id]
   subnet_id                   = aws_subnet.subnet[0].id
@@ -20,7 +20,7 @@ resource "aws_instance" "instance" {
   user_data_base64 = base64encode(file("./userdata.sh"))
 }
 
-# Create Custom-AMI of EC2-Instance
+# Create Custom-AMI of Apache Webserver
 resource "aws_ami_from_instance" "custom_ami" {
   name               = "${var.project}-ami"
   source_instance_id = aws_instance.instance.id
@@ -29,7 +29,7 @@ resource "aws_ami_from_instance" "custom_ami" {
   }
 }
 
-# Create Instance from Custom-AMI
+# Create Instance from Custom-AMI of Apache WebServer
 resource "aws_instance" "custom_ami_instance" {
   count                       = length(var.zone)
   vpc_security_group_ids      = [aws_security_group.sg.id]
