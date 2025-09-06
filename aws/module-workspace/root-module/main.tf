@@ -1,5 +1,5 @@
 module "aws_ec2" {
-  source        = "../modules/ec2"
+  source        = "../modules/ec2"    # source = "git::https://github.com/sbiswas232/terraform-aws-vpc.git?ref=v1.0.0" (If Source is from Github)
   project       = var.project
   vpc_cidr      = var.vpc_cidr
   key_name      = var.key_name
