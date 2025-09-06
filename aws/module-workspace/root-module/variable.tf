@@ -1,3 +1,18 @@
+variable "project" {
+  type    = string
+  default = ""
+}
+
+variable "region" {
+  type    = string
+  default = ""
+}
+
+variable "vpc_cidr" {
+  type    = string
+  default = ""
+}
+
 variable "credential" {
   type = object({
     access_key = string
@@ -13,23 +28,28 @@ variable "credential" {
 variable "instance_type" {
   type = map(string)
   default = {
-    "dev"  = "t2.micro"
-    "test" = "t2.nano"
+    "dev"  = ""
+    "test" = ""
   }
 }
 
 variable "volume_size" {
   type = map(number)
   default = {
-    "dev"  = 10
-    "test" = 8
+    "dev"  = 0
+    "test" = 0
   }
 }
 
 variable "volume_type" {
   type = map(string)
   default = {
-    "dev"  = "gp3"
-    "test" = "gp2"
+    "dev"  = ""
+    "test" = ""
   }
+}
+
+variable "key_name" {
+  type    = string
+  default = ""
 }
