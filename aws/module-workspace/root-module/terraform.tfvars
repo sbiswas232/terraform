@@ -1,7 +1,7 @@
 project  = "31aug25"
 region   = "ap-southeast-1"
 vpc_cidr = "172.16.16.0/20"
-key_name = "exam23sgp"
+key_name = "#######"
 
 instance_type = {
   "dev"  = "t2.micro"
