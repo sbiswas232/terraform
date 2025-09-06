@@ -11,10 +11,10 @@ resource "aws_vpc" "vpc" {
 
 # Create Subnet
 resource "aws_subnet" "subnet" {
-  count             = length(var.zone)
+  count             = 3
   vpc_id            = aws_vpc.vpc.id
   cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 4, count.index + 1)
-  availability_zone = element(var.zone, count.index)
+  availability_zone = data.aws_availability_zones.available_zone.names[count.index]
   tags = {
     Name = "${var.project}-${terraform.workspace}-subnet${count.index + 1}"
   }
@@ -42,7 +42,7 @@ resource "aws_route_table" "route" {
 
 # Create Subnet Association
 resource "aws_route_table_association" "subnet_association" {
-  count          = length(var.zone)
+  count          = 2
   route_table_id = aws_route_table.route.id
   subnet_id      = element(aws_subnet.subnet[*].id, count.index)
 }
