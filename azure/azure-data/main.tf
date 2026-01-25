@@ -10,7 +10,7 @@ resource "azurerm_storage_account" "project25-01-storage" {
 }
 
 resource "azurerm_storage_container" "project25-01-container" {
-  name                  = "project25-01-container"
+  name                  = "project250126container"
   storage_account_id    = azurerm_storage_account.project25-01-storage.id
   container_access_type = "container"
 }
