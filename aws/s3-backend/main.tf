@@ -1,24 +1,19 @@
 resource "aws_vpc" "vpc" {
-  count      = length(var.vpc_cidr)
-  cidr_block = var.vpc_cidr[count.index]
+  cidr_block           = var.vpc-cidr
+  instance_tenancy     = "default"
+  enable_dns_hostnames = true
   tags = {
-    Name = "${var.project}-${var.tag_name[count.index]}-VPC"
+    project = "${var.project}"
+    Name    = "Default-WorkSpace"
   }
 }
 
 resource "aws_subnet" "subnet" {
-  count             = length(var.subnet_cidr)
-  vpc_id            = element(aws_vpc.vpc[*].id, count.index % length(aws_vpc.vpc))
-  cidr_block        = var.subnet_cidr[count.index]
+  count             = length(var.zone)
+  vpc_id            = aws_vpc.vpc.id
+  cidr_block        = cidrsubnet(aws_vpc.vpc.cidr_block, 4, count.index)
   availability_zone = var.zone[count.index]
   tags = {
-    Name = "${var.project}-${var.tag_name[count.index]}-Subnet"
-  }
-}
-
-resource "aws_internet_gateway" "igw" {
-  vpc_id = aws_vpc.vpc[0].id
-  tags = {
-    Name = "${var.project}-${var.tag_name[0]}-Igw1"
+    Name = "${var.project}-subnet${count.index + 1}"
   }
 }
