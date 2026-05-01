@@ -1,3 +1,4 @@
+# Create Resource Group & Storage Account by Azure-CLI
 az login
 
 az login --tenant "#####################"
