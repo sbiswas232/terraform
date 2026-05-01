@@ -12,8 +12,3 @@ variable "vnet-cidr" {
   type    = string
   default = ""
 }
-
-variable "subnet-cidr" {
-  type = list(string)
-  default = [ "", "" ]
-}

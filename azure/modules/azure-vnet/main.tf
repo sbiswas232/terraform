@@ -22,9 +22,9 @@ resource "azurerm_virtual_network" "vnet" {
 
 # Create Two Subnet for Virtual Network vnet
 resource "azurerm_subnet" "subnet" {
-  count                = length(var.subnet-cidr)
+  count                = 2
   resource_group_name  = azurerm_resource_group.rg.name
   virtual_network_name = azurerm_virtual_network.vnet.name
-  address_prefixes     = [var.subnet-cidr[count.index]]
+  address_prefixes     = [cidrsubnet(tolist(azurerm_virtual_network.vnet.address_space)[0], 8, count.index +1)]
   name                 = "${var.project}-vnet-subnet${count.index + 1}"
 }
